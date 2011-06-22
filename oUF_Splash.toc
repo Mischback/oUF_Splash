@@ -1,0 +1,10 @@
+## Interface: 40100
+## Author: Mischback
+## Title: oUF|cffffd700 Splash|r
+## RequiredDeps: oUF
+## X-Category: UnitFrame
+
+settings.lua
+lib.lua
+core.lua
+layout.lua
