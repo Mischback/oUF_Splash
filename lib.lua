@@ -20,5 +20,22 @@ lib.CreateFontObject = function(parent, size, font)
 	return fo
 end
 
+--[[ Shortening the values displayed on the Health- and Power-Bars
+	STRING Shorten(INT value)
+]]
+lib.Shorten = function(value)
+	if value >= 1e7 then
+		return ('%.1fm'):format(value / 1e6):gsub('%.?0+([km])$', '%1')
+	elseif value >= 1e6 then
+		return ('%.2fm'):format(value / 1e6):gsub('%.?0+([km])$', '%1')
+	elseif value >= 1e5 then
+		return ('%.0fk'):format(value / 1e3)
+	elseif value >= 1e3 then
+		return ('%.1fk'):format(value / 1e3):gsub('%.?0+([km])$', '%1')
+	else
+		return value
+	end
+end
+
 -- *********************************************************************************
 ns.lib = lib

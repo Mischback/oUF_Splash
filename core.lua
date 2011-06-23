@@ -102,4 +102,16 @@ core.CreateUnitFrame = function(self, key)
 end
 
 -- *********************************************************************************
+-- ***** ENGINES *******************************************************************
+-- *********************************************************************************
+
+--[[ Player's Health-value 
+	VOID UpdateHealth_player(FRAME health, STRING unit, INT min, INT max)
+	Plain HP, just the current value!
+]]
+core.UpdateHealth_player = function(health, unit, min, max)
+	health.value:SetText(lib.Shorten(min))
+end
+
+-- *********************************************************************************
 ns.core = core

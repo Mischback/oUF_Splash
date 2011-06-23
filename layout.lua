@@ -16,6 +16,8 @@ SplashSettings = nil
 
 local function createPlayer(self)
 	core.CreateUnitFrame(self, 'player')
+
+	self.Health.PostUpdate = core.UpdateHealth_player
 end
 
 -- *********************************************************************************
