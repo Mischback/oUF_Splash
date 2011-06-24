@@ -101,6 +101,52 @@ core.CreateUnitFrame = function(self, key)
 
 end
 
+--[[ Adds a name to the unitframe
+	VOID createUnitFrameName(FRAME self, STRING key)
+	STRING key is the access to the SavedVariables-array, where settings like the size are stored.
+]]
+core.CreateUnitFrameName = function(self, key)
+
+	core.CreateUnitFrame(self, key)
+
+	-- creating the name
+	self.Name = lib.CreateFontObject(self.Power, 12, settings.fonts.grunge)
+	self.Name:SetPoint('LEFT', self.Health, 'TOPLEFT', 4, -2)
+	self.Name:SetPoint('RIGHT', self.Health, 'TOPRIGHT', -2, -2)
+
+	self.Health.PostUpdate = core.UpdateHealth_percent
+	self.UNIT_NAME_UPDATE = core.UpdateName
+
+end
+
+--[[ Adds a castbar to the frame (castbar will show upon the health-bar).
+	VOID createUnitFrameCastbar(FRAME self, STRING key)
+	STRING key is the access to the SavedVariables-array, where settings like the size are stored.
+]]
+core.CreateUnitFrameCastbar = function(self, key)
+
+	core.CreateUnitFrameName(self, key)
+
+	-- the Castbar
+	local cb = CreateFrame('StatusBar', nil, self)
+	cb:SetFrameLevel(41)
+	cb:SetStatusBarTexture(settings.tex.hp_bg, 'ARTWORK')
+	cb:SetStatusBarColor(0.86, 0.5, 0, 1)
+	cb:SetAllPoints(self.Health)
+
+	cb.bg = cb:CreateTexture(nil, 'BACKGROUND')
+	cb.bg:SetAllPoints(cb)
+	cb.bg:SetTexture(settings.tex.hp)
+	cb.bg:SetVertexColor(0.1, 0.1, 0.1)
+
+	cb.Text = lib.CreateFontObject(cb, 16, settings.fonts.clear)
+	cb.Text:SetPoint('LEFT', 3, 0)
+	cb.Text:SetPoint('RIGHT', -3, 0)
+	cb.Text:SetTextColor(1, 1, 1)
+
+	self.Castbar = cb
+end
+
 -- *********************************************************************************
 -- ***** ENGINES *******************************************************************
 -- *********************************************************************************
@@ -111,6 +157,25 @@ end
 ]]
 core.UpdateHealth_player = function(health, unit, min, max)
 	health.value:SetText(lib.Shorten(min))
+end
+
+--[[ Percent Health-value
+	VOID UpdateHealth_percent(FRAME health, STRING unit, INT min, INT max)
+	HP as %, triggers the update of the unit's name.
+]]
+core.UpdateHealth_percent = function(health, unit, min, max)
+	health.value:SetFormattedText('%d', (min/max)*100)
+	health:GetParent():UNIT_NAME_UPDATE(event, unit)
+end
+
+-- *********************************************************************************
+
+--[[ Just the name...
+	VOID UpdateName(FRAME self, STRING event, STRING unit)
+]]
+core.UpdateName = function(self, event, unit)
+	local name = UnitName(unit)
+	self.Name:SetText(name)
 end
 
 -- *********************************************************************************
