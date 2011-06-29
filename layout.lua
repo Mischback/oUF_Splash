@@ -20,6 +20,22 @@ SplashSettings = nil
 local function createPlayer(self)
 	core.CreateUnitFrame(self, 'player')
 
+	self.Buffs = CreateFrame('Frame', nil, self)
+	self.Buffs:SetSize(floor(cfg.width/(cfg.auraSize+cfg.auraSpacing))*(cfg.auraSize+cfg.auraSpacing)-cfg.auraSpacing, cfg.auraSize)
+	self.Buffs:SetPoint('TOP', self, 'BOTTOM', 0, -10)
+	self.Buffs.size = cfg.auraSize
+	self.Buffs.spacing = cfg.auraSpacing
+	self.Buffs.num = floor(cfg.width/(cfg.auraSize+cfg.auraSpacing))
+	self.Buffs.PostCreateIcon = core.PostCreateIcon
+
+	self.Debuffs = CreateFrame('Frame', nil, self)
+	self.Debuffs:SetSize(floor(cfg.width/(cfg.auraSize+cfg.auraSpacing))*(cfg.auraSize+cfg.auraSpacing)-cfg.auraSpacing, cfg.auraSize)
+	self.Debuffs:SetPoint('BOTTOM', self, 'TOP', 0, 7)
+	self.Debuffs.size = cfg.auraSize
+	self.Debuffs.spacing = cfg.auraSpacing
+	self.Debuffs.num = floor(cfg.width/(cfg.auraSize+cfg.auraSpacing))
+	self.Debuffs.PostCreateIcon = core.PostCreateIcon
+
 	self.Health.PostUpdate = core.UpdateHealth_player
 end
 

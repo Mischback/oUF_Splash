@@ -33,6 +33,8 @@ settings.init = {
 		['height'] = 32,
 		['powerHeight'] = 5,
 		['powerXOff'] = 10,
+		['auraSize'] = 22,
+		['auraSpacing'] = 6,
 	},
 	['target'] = {
 		['width'] = 180,

@@ -147,6 +147,7 @@ core.CreateUnitFrameCastbar = function(self, key)
 	self.Castbar = cb
 end
 
+
 -- *********************************************************************************
 -- ***** ENGINES *******************************************************************
 -- *********************************************************************************
@@ -176,6 +177,35 @@ end
 core.UpdateName = function(self, event, unit)
 	local name = UnitName(unit)
 	self.Name:SetText(name)
+end
+
+
+-- *********************************************************************************
+-- ***** AURA **********************************************************************
+-- *********************************************************************************
+
+--[[ Styles aura-icons in Splash-Style
+	VOID PostCreateIcon(FRAME self, BUTTON b)
+	- Cut off ugly Blizzard-IconBorders
+	- no CD-frame
+	- 1px border (background)
+	- add Gloss
+]]
+core.PostCreateIcon = function(self, b)
+
+	b.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	b.cd:SetAllPoints(b)
+	b.cd:SetFrameLevel(0)
+	b.cd:Hide()
+
+	b.back = b:CreateTexture(nil, 'BACKGROUND')
+	b.back:SetPoint('TOPLEFT', -1, 1)
+	b.back:SetPoint('BOTTOMRIGHT', 1, -1)
+	b.back:SetTexture(0, 0, 0, 1)
+
+	b.gloss = b:CreateTexture(nil, 'ARTWORK')
+	b.gloss:SetAllPoints(b)
+	b.gloss:SetTexture(settings.tex.gloss_aura)
 end
 
 -- *********************************************************************************
